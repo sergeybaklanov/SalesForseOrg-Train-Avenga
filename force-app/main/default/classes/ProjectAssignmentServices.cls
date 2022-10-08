@@ -27,4 +27,17 @@ Input parameter: List<Project_Assignment__c> projects
 
 Result: Map<String, List<Project_Assignment__c>> - 
 key is string representing Project_Assignment__c.Project__c + '-' + Project_Assignment__c.Developer__c,
- value - List Of Project_Assignment__c records;*/
+ value - List Of Project_Assignment__c records;
+ 
+ List<Project_Assignment__c> projects = [SELECT Id,Project__c,Developer__c,Project__r.Name,Developer__r.Name FROM Project_Assignment__c];
+
+Map<String, List<Project_Assignment__c>> result=
+    ProjectAssignmentServices.groupUniqueProjectAssigments(projects);
+System.debug('keys= '+result.keySet());
+System.debug('keys= '+result.keySet().size());
+for(List<Project_Assignment__c> records : result.values()){
+    System.debug(records.size());
+}
+for(String key : result.keySet()){
+    System.debug(result.get(key).size()+' '+key);
+}*/
