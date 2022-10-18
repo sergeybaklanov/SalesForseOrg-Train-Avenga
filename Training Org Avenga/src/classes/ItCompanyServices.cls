@@ -1,11 +1,14 @@
 public with sharing class ItCompanyServices {
+//    + createProject | Database.SaveResult	  |Id clientId	| create project
+
     public static Database.SaveResult createProject(Id clientId) {
 
         Database.SaveResult saveResult = Database.insert(new Project__c(Client__c = clientId));
 
         return saveResult;
     }
-        //__________________________________________________________________________________________________________________
+    //__________________________________________________________________________________________________________________
+   //+ createProjectAssignment   |void |Id projectId, Id developerId   |create project assignment
     public static void createProjectAssignment(Id projectId, Id developerId) {
         try {
             insert (new Project_Assignment__c(Project__c = projectId, Developer__c = developerId));
@@ -13,19 +16,21 @@ public with sharing class ItCompanyServices {
             System.debug('Error = ' + e);
         }
     }
-        //__________________________________________________________________________________________________________________
-    public static void makeProjectBillable(Id projectId) {
+    //__________________________________________________________________________________________________________________
+   //+ makeProjectBillable  |	void   |	Id projectId  |update project with IsBillable__c = true
+     public static void makeProjectBillable(Id projectId) {
         Project__c project = new Project__c(Id = projectId);
         project.Is_Billable__c = true;
-        project.Project_Budget__c = 20;
+        project.Project_Budget__c = 1;
         try {
             update project;
         } catch (DmlException e) {
             System.debug('Error = ' + e);
         }
-
     }
-        //__________________________________________________________________________________________________________________
+    //
+    //__________________________________________________________________________________________________________________
+   //+deactivateProjects  |	void |Set<Id> projectIds |update project with Active__c = false, delete all project assignments
     public static void deactivateProjects(Set<Id> projectIds) {
         List <Project__c> listProjects = new List<Project__c>();
 
@@ -45,13 +50,16 @@ public with sharing class ItCompanyServices {
         }
     }
     //For check
-//    Set<Id> projectIds  = new Set<Id>{'a027Q0000039ApN','a027Q0000039AqA','a027Q0000039AqF','a027Q0000039AqK'};
+//    List <Project__c> projectsIds =[SELECT Id FROM Project__c WHERE Client__r.Name = 'ClientDML'];
+//    Set <Id> ids = (new Map<Id, Project__c>(projectsIds)).keySet();
 //
-//    ItCompanyServices.deactivateProjects(projectIds);
-        //__________________________________________________________________________________________________________________
+//    ItCompanyServices.deactivateProjects(ids);
+    //__________________________________________________________________________________________________________________
+   // +createDeveloperAndAssign |List<Database.SaveResult>	|String devName, Set<Id> projectIds| create Developer record and assign projects to it
+
     public static List<Database.SaveResult> createDeveloperAndAssign(String devName, Set<Id> projectIds) {
         Developer__c developer = new Developer__c(Name = devName);
-        Database.SaveResult developerInsert = Database.insert (developer,false);
+        Database.SaveResult developerInsert = Database.insert (developer, false);
 
         Id developerId = developer.Id;
 
@@ -64,16 +72,17 @@ public with sharing class ItCompanyServices {
             listNewProjectAssignments.add(assignment);
         }
 
-        List<Database.SaveResult> projectAssignmentInsert = Database.insert(listNewProjectAssignments);
-       // projectAssignmentInsert.add(0, developerInsert);
+        List<Database.SaveResult> saveResults = Database.insert(listNewProjectAssignments);
+        // projectAssignmentInsert.add(0, developerInsert);
 
-        return projectAssignmentInsert;
+        return saveResults;
     }
 
-    //Checking
-    // Set<Id> projectIds  = new Set<Id>{'a027Q0000039AqyQAE'};
-    //
-    //ItCompanyServices.createDeveloperAndAssign('NewDew',projectIds);
+//Check:
+//    List <Project__c> projectsIds =[SELECT Id FROM Project__c WHERE Client__r.Name = 'ClientDML'];
+//    Set <Id> ids = (new Map<Id,Project__c>(projectsIds)).keySet();
+//
+//    ItCompanyServices.createDeveloperAndAssign('DeveloperDML',ids);
 
 
 }

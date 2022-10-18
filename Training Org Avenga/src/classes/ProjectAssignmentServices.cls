@@ -1,14 +1,14 @@
 public with sharing class ProjectAssignmentServices {
 
    public static Map<String, List<Project_Assignment__c>> 
-    groupUniqueProjectAssigments(List<Project_Assignment__c> projects){
+    groupUniqueProjectAssignments(List<Project_Assignment__c> projects){
        
         Set<String> keysProjectDeveloper = new Set<String>();
         Map<String, List<Project_Assignment__c>> result = new Map<String, List<Project_Assignment__c>>();
 
             for(Project_Assignment__c recordAssignment : projects){
-                //String key = recordAssignment.Project__c+'-'+recordAssignment.Developer__c;
-                String key = recordAssignment.Project__r.Name+'-'+recordAssignment.Developer__r.Name;
+                String key = recordAssignment.Project__c+'-'+recordAssignment.Developer__c;
+                //String key = recordAssignment.Project__r.Name+'-'+recordAssignment.Developer__r.Name;
                 if(result.keySet().contains(key)){
                  result.get(key).add(recordAssignment);
                 }
