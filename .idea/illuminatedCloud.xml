@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="IlluminatedCloudSettings">
+    <option name="connections">
+      <list>
+        <IlluminatedCloudConnection>
+          <option name="connectionName" value="Training Org Avenga" />
+          <option name="connectionType" value="MDAPI" />
+          <option name="defaultModuleName" value="Training Org Avenga" />
+          <option name="offlineSymbolTablePath" value="$PROJECT_DIR$/IlluminatedCloud/Training_Org_Avenga/OfflineSymbolTable.zip" />
+        </IlluminatedCloudConnection>
+      </list>
+    </option>
+  </component>
+</project>
