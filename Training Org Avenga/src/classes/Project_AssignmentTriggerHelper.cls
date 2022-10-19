@@ -15,7 +15,6 @@ public with sharing class Project_AssignmentTriggerHelper {
 
     private static void checkPAFieldOnChanges(List<Project_Assignment__c> pasNew, List<Project_Assignment__c> pasOld) {
         List<Project_Assignment__c> filterChangedPass = new List<Project_Assignment__c>();
-        Map<Id,Project_Assignment__c> mapIds =
 
         for (Project_Assignment__c pasN : pasNew) {
             for (Project_Assignment__c pasO : pasOld) {
