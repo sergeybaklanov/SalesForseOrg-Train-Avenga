@@ -15,10 +15,14 @@ public with sharing class Project_AssignmentTriggerHelper {
 
     private static void checkPAFieldOnChanges(List<Project_Assignment__c> pasNew, List<Project_Assignment__c> pasOld) {
         List<Project_Assignment__c> filterChangedPass = new List<Project_Assignment__c>();
+        Map<Id,Project_Assignment__c> oldMap = new Map<Id,Project_Assignment__c>();
+        for(Project_Assignment__c pa : pasOld){
+            oldMap.put(pa.Id,pa);
+        }
 
         for (Project_Assignment__c pasN : pasNew) {
-            for (Project_Assignment__c pasO : pasOld) {
-                if (!(pasN.Developer__c == pasO.Developer__c && pasN.Project__c == pasO.Project__c)) {
+            if(oldMap.containsKey(pasN.Id)){
+                if (!(pasN.Developer__c == oldMap.get(pasN.Id).Developer__c && pasN.Project__c == oldMap.get(pasN.Id).Project__c)) {
                     filterChangedPass.add(pasN);
                 }
             }
