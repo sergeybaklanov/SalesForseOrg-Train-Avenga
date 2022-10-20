@@ -60,7 +60,7 @@ public with sharing class Project_AssignmentTriggerHelper {
             if (mapAssignmentsNew.get(key).size() > 1) {
 
                 for (Project_Assignment__c el : mapAssignmentsNew.get(key)) {
-                    el.addError(el.Developer__c + '-' + el.Project__c + ' Duplicated Project assignment on the Developer in new list');
+                    el.addError('Duplicated Project assignment on the Developer in new list');
                 }
             } else {
                 filteredListPas.addAll(mapAssignmentsNew.get(key));

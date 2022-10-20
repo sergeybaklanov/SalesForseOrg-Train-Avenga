@@ -3,7 +3,7 @@
  * Created by User on 18.10.2022.
  */
 
-public with sharing class Project_TriggerHelper {
+public with sharing class ProjectTriggerHelper {
     // Filter records in which checkbox Billable was changed
     public static void afterUpdate(Map<Id, Project__c> newMap, Map<Id, Project__c> oldMap) {
 
@@ -34,20 +34,7 @@ public with sharing class Project_TriggerHelper {
         List <Developer__c> developersToUpdate = new List<Developer__c>();
         //Map, where key = developer id, value = number of billable assigned projects
         Map<Id, Integer> totalBillableProjectField = ItCompanyDAO.getDeveloperTotalBillableProjects(developersIds);
-        /*
-         public static Map<Id, Integer> getDeveloperTotalBillableProjects(Set<Id> developerIds) {
-        List<Developer__c>developers = [
-                SELECT Id, (SELECT Id FROM Projects_Assignments__r WHERE Project__r.Is_Billable__c = TRUE)
-                FROM Developer__c
-                WHERE Id IN :developerIds
-        ];
-        Map<Id, Integer> result = new Map<Id, Integer>();
-        for (Developer__c developer : developers) {
-            result.put(developer.Id, developer.Projects_Assignments__r.size());
-        }
-        return result;
-    }
-         */
+
         for (Id devId : totalBillableProjectField.keySet()) {
             developersToUpdate.add(new Developer__c(Id = devId, Total_Billable_Projects__c = totalBillableProjectField.get(devId)));
         }

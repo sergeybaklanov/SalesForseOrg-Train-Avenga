@@ -13,6 +13,8 @@ public with sharing class ItCompanyDAO {
         }
         return ids;
     }
+    //----------------------------------------------------------------------------------------------------------------------
+
 
     // Task : getUnassignedDeveloperIds |	Set<Id>	| -	| get developer ids who has assigned into 0 projects
     public static Set<Id> getUnassignedDeveloperIds() {
@@ -26,12 +28,15 @@ public with sharing class ItCompanyDAO {
 
         return (new Map<Id, Developer__c>(listAllDevelopers)).keySet();
     }
+    //----------------------------------------------------------------------------------------------------------------------
+
     /*getClients |	List<Client__c>	| Integer limitNumber, Integer offsetNumber	| get Client__c records
  with LIMIT and OFFSET*/
     public static List<Client__c> getClients(Integer limitNumber, Integer offsetNumber) {
         List<Client__c> listOfClients = [SELECT Id,Name FROM Client__c LIMIT :limitNumber OFFSET :offsetNumber];
         return listOfClients;
     }
+    //----------------------------------------------------------------------------------------------------------------------
 
     /*getDevelopers |	List<Developer__c>	| Set<Id> developerId, Integer limitNumber, Integer offsetNumber	|
 dynamic query. If any of params is null - do not add respective condition to query.*/
@@ -47,6 +52,7 @@ dynamic query. If any of params is null - do not add respective condition to que
 
         return Database.query(dynamicQuery);
     }
+    //----------------------------------------------------------------------------------------------------------------------
 
     /* getClientTotalActiveProjects	| Map<Id, Integer>	| Set<Id> clientIds	| return map, where key = client id,
              value = number of active projects.*/
