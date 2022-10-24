@@ -13,7 +13,7 @@ trigger Project_AssignmentTrigger on Project_Assignment__c (before insert, befor
 
     }
    // Total Billable Projects of the Developer should be recalculated each time
-    // a new Project Assignment is created or Is Billable field is changed on the Project.
+    // a new Project Assignment is created or // Is Billable field is changed on the Project. - Project Trigger
     if(Trigger.isAfter){
         if(Trigger.isInsert){
             Project_AssignmentTriggerHelper.afterInsert(Trigger.new);

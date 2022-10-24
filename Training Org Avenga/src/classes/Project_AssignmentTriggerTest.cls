@@ -19,11 +19,13 @@ private class Project_AssignmentTriggerTest {
     static void assignBillableProject() {
 
         Integer numEl = 4;
+        //Before Update
         List<Developer__c> listDev = [SELECT Id, Total_Billable_Projects__c FROM Developer__c LIMIT :numEl];
         List<Project__c> listProj = TestDataFactory.createProjects(numEl, true, 100, true);
 
         Map <Id, Developer__c> devIds = new Map<Id, Developer__c>(listDev);
 
+        //Assign projects on developer
         List<Project_Assignment__c> listProjAssign = new List<Project_Assignment__c>();
         for (Integer i = 0; i < listDev.size(); i++) {
             for (Integer j = 0; j < listProj.size(); j++) {
@@ -35,6 +37,7 @@ private class Project_AssignmentTriggerTest {
         insert listProjAssign;
         Test.stopTest();
 
+        //After Update
         List<Developer__c> resListDev = [SELECT Id, Total_Billable_Projects__c FROM Developer__c WHERE Id IN :devIds.keySet()];
 
         for (Developer__c key : resListDev) {
@@ -47,6 +50,7 @@ private class Project_AssignmentTriggerTest {
 
         List<Project_Assignment__c> listProjAssign = [SELECT Developer__c, Project__c FROM Project_Assignment__c LIMIT 3];
 
+        //Create clone developers
         List<Project_Assignment__c> lAssignments = new List<Project_Assignment__c>();
         for (Project_Assignment__c proj : listProjAssign) {
             lAssignments.add(new Project_Assignment__c(Developer__c = proj.Developer__c, Project__c = proj.Project__c));

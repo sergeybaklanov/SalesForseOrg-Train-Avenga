@@ -18,7 +18,8 @@ private class ItCompanyDAOTest {
         List<Client__c> listClients = TestDataFactory.createClients(countCreateClients);
     }
 
-
+//    get developer ids who has assigned less then into 5
+//    billable projects (use Developer__c.Total_Billable_Projects__c field))
     @IsTest
     static void getAvailableDeveloperIdsTest() {
         Integer count = 2;
@@ -31,9 +32,11 @@ private class ItCompanyDAOTest {
         Set<Id> devIds = ItCompanyDAO.getAvailableDeveloperIds();
         Test.stopTest();
         System.assert(devIds.size() == count);
+
+
     }
 
-
+    //get developer ids who has assigned into 0 projects
     @IsTest
     static void getUnassignedDeveloperIdsTest() {
         List<Developer__c> listDev = TestDataFactory.createDevelopers(1);
@@ -51,7 +54,7 @@ private class ItCompanyDAOTest {
         }
     }
 
-
+    //get Client__c records with LIMIT and OFFSET
     @IsTest
     static void getClientsTest(){
 
@@ -68,6 +71,7 @@ private class ItCompanyDAOTest {
     }
 
 
+    //dynamic query. If any of params is null - do not add respective condition to query.
     @IsTest
     static void getDevelopersZeroTest(){
 
@@ -123,9 +127,10 @@ private class ItCompanyDAOTest {
         }
 
         System.assert(testResult);
-        System.assert(expectedResult.size()<=limitNumber);
+       // System.assert(expectedResult.size()<=limitNumber);
     }
 
+    //return map, where key = client id,value = number of active projects
     @IsTest
     static void getClientTotalActiveProjectsTest() {
         Integer num=5;
@@ -152,14 +157,16 @@ private class ItCompanyDAOTest {
         }
     }
 
+    //return map, where key = developer id, value = number of billable assigned projects
     @IsTest
     static void getDeveloperTotalBillableProjectsTest(){
+        Integer numProgOnDeveloper = 5;
 
 
         List <Developer__c> developers = [SELECT Id,Total_Billable_Projects__c FROM Developer__c LIMIT 2];
         Set<Id> developersIds = (new Map<Id,Developer__c> (developers).keySet());
 
-        List<Project__c> listProj = TestDataFactory.createProjects(5, true, 100, true);
+        List<Project__c> listProj = TestDataFactory.createProjects(numProgOnDeveloper, true, 100, true);
         List<Project_Assignment__c> listProjAssign = TestDataFactory.createDevelopersProjectAssignment(developers, listProj);
 
         Test.startTest();
@@ -171,7 +178,7 @@ private class ItCompanyDAOTest {
         System.assert(developersIds.size()==mapResults.size());
 
         for (Id key : mapResults.keySet()) {
-            System.assert(mapResults.get(key)==5+countCreateProj);
+            System.assert(mapResults.get(key)==numProgOnDeveloper+countCreateProj);
         }
     }
 }

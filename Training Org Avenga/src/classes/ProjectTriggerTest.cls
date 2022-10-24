@@ -20,9 +20,8 @@ private class ProjectTriggerTest {
     static void updateDevelopersFieldTotalBillableProjects() {
 
         Integer numEl =4;
-
+//Before Update
         List<Developer__c> listDev = [SELECT Id, Total_Billable_Projects__c FROM Developer__c LIMIT :numEl];
-
         Map <Id,Developer__c> devIds = new Map<Id,Developer__c>(listDev);
 
         List<Project__c> listProj = [SELECT Id, Is_Billable__c FROM Project__c LIMIT :numEl];
@@ -37,6 +36,7 @@ private class ProjectTriggerTest {
 
         Test.stopTest();
 
+        //After Update
         List<Developer__c> resListDev = [SELECT Id, Total_Billable_Projects__c FROM Developer__c WHERE Id IN :devIds.keySet()];
 
         for(Developer__c key: resListDev){
