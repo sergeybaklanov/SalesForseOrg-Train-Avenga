@@ -88,11 +88,10 @@ private class Project_AssignmentTriggerTest {
 
         Test.stopTest();
 
-        for (Integer i = 0; i < result.size(); i++) {
-            System.assert(!result[i].isSuccess());
-            System.assert(result[i].getErrors().size() > 0);
+            System.assert(!result[0].isSuccess());
+            System.assert(result[0].getErrors().size() > 0);
             System.assertEquals('Developer already has assignment on this project',
-                    result[i].getErrors()[0].getMessage());
-        }
+                    result[0].getErrors()[0].getMessage());
+
     }
 }
