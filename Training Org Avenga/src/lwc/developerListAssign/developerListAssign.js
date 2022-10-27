@@ -9,7 +9,9 @@ import getProjectsAssignments from '@salesforce/apex/DeveloperListAssignControll
 const columns = [
     {label: 'Project Assignment Name', fieldName: 'Name'},
     {label: 'Project Name', fieldName: 'prName', type: 'text'},
-    {label: 'CreatedDate', fieldName: 'CreatedDate', type: 'date'}
+    {label: 'CreatedDate', fieldName: 'CreatedDate', type: 'date'},
+    {label: 'Billable?', fieldName: 'prBillable', type: 'text'},
+    {label: 'Active?', fieldName: 'prActive', type: 'text'}
 ];
 
 
@@ -27,7 +29,9 @@ export default class DeveloperListAssign extends LightningElement {
         getProjectsAssignments({recordId: this.recordId})
             .then(result => {
                 result.forEach(el => {
-                    el.prName = el.Project__r.Name
+                    el.prName = el.Project__r.Name;
+                    el.prBillable = el.Project__r.Is_Billable__c;
+                    el.prActive = el.Project__r.Active__c;
                 });
                 this.data = result;
             })

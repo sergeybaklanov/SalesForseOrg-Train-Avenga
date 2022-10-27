@@ -167,6 +167,14 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>LastRaiseDate__c</fullName>
+        <externalId>false</externalId>
+        <label>LastRaiseDate</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
         <fullName>Last_Sync_Date__c</fullName>
         <description>Displays the date of the last synchronization</description>
         <externalId>false</externalId>
@@ -174,6 +182,16 @@
         <required>false</required>
         <trackTrending>false</trackTrending>
         <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Salary__c</fullName>
+        <externalId>false</externalId>
+        <label>Salary</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
     </fields>
     <fields>
         <fullName>Total_Billable_Projects__c</fullName>
@@ -190,6 +208,11 @@
     <label>Developer</label>
     <listViews>
         <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>LastRaiseDate__c</columns>
+        <columns>Salary__c</columns>
+        <columns>Total_Billable_Projects__c</columns>
+        <columns>Is_Billable__c</columns>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

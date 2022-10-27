@@ -162,7 +162,7 @@
         <relationshipLabel>Projects Assignments</relationshipLabel>
         <relationshipName>Projects_Assignments</relationshipName>
         <relationshipOrder>1</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
         <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
@@ -185,10 +185,10 @@
         <relationshipLabel>Projects Assignments</relationshipLabel>
         <relationshipName>Projects_Assignments</relationshipName>
         <relationshipOrder>0</relationshipOrder>
-        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
         <trackTrending>false</trackTrending>
         <type>MasterDetail</type>
-        <writeRequiresMasterRead>true</writeRequiresMasterRead>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>
     <label>Project Assignment</label>
     <listViews>

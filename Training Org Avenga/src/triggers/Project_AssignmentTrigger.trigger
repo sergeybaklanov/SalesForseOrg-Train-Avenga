@@ -1,4 +1,3 @@
-
 //The system should prevent duplicate Project Assignments (with the same Developer and Project).
 
 trigger Project_AssignmentTrigger on Project_Assignment__c (before insert, before update, after insert ) {
