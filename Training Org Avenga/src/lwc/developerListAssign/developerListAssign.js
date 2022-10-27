@@ -8,8 +8,8 @@ import getProjectsAssignments from '@salesforce/apex/DeveloperListAssignControll
 
 const columns = [
     {label: 'Project Assignment Name', fieldName: 'Name'},
-    {label: 'CreatedDate', fieldName: 'CreatedDate', type: 'date'},
-    {label: 'Project Name', fieldName: 'prName', type: 'text'}
+    {label: 'Project Name', fieldName: 'prName', type: 'text'},
+    {label: 'CreatedDate', fieldName: 'CreatedDate', type: 'date'}
 ];
 
 
@@ -18,6 +18,23 @@ export default class DeveloperListAssign extends LightningElement {
 
     data = [];
     columns = columns;
+
+    connectedCallback() {
+        this.loadData();
+    }
+
+    loadData() {
+        getProjectsAssignments({recordId: this.recordId})
+            .then(result => {
+                result.forEach(el => {
+                    el.prName = el.Project__r.Name
+                });
+                this.data = result;
+            })
+            .catch(error => {
+                this.error = error;
+            });
+    }
 
     handleRefresh(event) {
         this.showMessage('Refresh', 'Refresh is not yet configure', 'Success');
@@ -32,24 +49,5 @@ export default class DeveloperListAssign extends LightningElement {
             variant: variant
         });
         this.dispatchEvent(evt);
-    }
-
-    connectedCallback() {
-        this.loadData();
-    }
-
-    loadData() {
-        getProjectsAssignments({recordId: this.recordId})
-            .then(result => {
-                console.log(result);
-                result.forEach(el => {
-                    el.prName = el.Project__r.Name
-                });
-                console.log(result);
-                this.data = result;
-            })
-            .catch(error => {
-                this.error = error;
-            });
     }
 }
