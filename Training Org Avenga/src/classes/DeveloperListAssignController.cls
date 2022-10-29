@@ -13,4 +13,12 @@ public with sharing class DeveloperListAssignController {
         return listProjectAssignments;
     }
 
+    @AuraEnabled
+    public static void makeSync(Id recordId) {
+        try {
+            DeveloperCallout.makeGetRequest(recordId);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }

@@ -5,6 +5,7 @@
 import {LightningElement, api} from 'lwc';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 import getProjectsAssignments from '@salesforce/apex/DeveloperListAssignController.getProjectsAssignments';
+import makeSync from '@salesforce/apex/DeveloperListAssignController.makeSync'
 
 const columns = [
     {label: 'Project Assignment Name', fieldName: 'Name'},
@@ -41,9 +42,17 @@ export default class DeveloperListAssign extends LightningElement {
     }
 
     handleRefresh(event) {
-        this.showMessage('Refresh', 'Refresh is not yet configure', 'Success');
-        this.loadData();
-
+        makeSync({recordId: this.recordId})
+            .then(result => {
+                console.log(result);
+                this.showMessage('Refresh', 'Record successfully updated', 'Success');
+                // eval("$A.get('e.force:refreshView').fire();");
+            })
+            .catch(error => {
+                this.showMessage('Refresh', 'Record is not updated: '+error.status+' '+error.statusText, 'Error');
+                console.error(error);
+                this.error = error;
+            });
     }
 
     showMessage(title, message, variant) {
