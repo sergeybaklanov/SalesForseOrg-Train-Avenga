@@ -45,14 +45,15 @@ export default class DeveloperListAssign extends LightningElement {
         makeSync({recordId: this.recordId})
             .then(result => {
                 console.log(result);
+                eval("$A.get('e.force:refreshView').fire();");
                 this.showMessage('Refresh', 'Record successfully updated', 'Success');
-                // eval("$A.get('e.force:refreshView').fire();");
             })
             .catch(error => {
                 this.showMessage('Refresh', 'Record is not updated: '+error.status+' '+error.statusText, 'Error');
                 console.error(error);
                 this.error = error;
             });
+        this.loadData();
     }
 
     showMessage(title, message, variant) {
